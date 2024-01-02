@@ -56,7 +56,7 @@ jobs:
         tagging_message: ${{ github.event.inputs.clientTag }}
     - uses: ncipollo/release-action@v1
       with:
-        artifacts: target/robot-fabric8-client*.jar"
+        artifacts: target/external-fabric8-models*.jar"
         tag: ${{ github.event.inputs.clientTag }}
         name: ${{ github.event.inputs.clientTag }}
         prerelease: "${{ github.event.inputs.isPrerelease }}"
