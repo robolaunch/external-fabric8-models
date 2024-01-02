@@ -5,6 +5,6 @@ package tech.stackable.listeners.v1alpha1;
 @io.fabric8.kubernetes.model.annotation.Singular("listenerclass")
 @io.fabric8.kubernetes.model.annotation.Plural("listenerclasses")
 @javax.annotation.processing.Generated("io.fabric8.java.generator.CRGeneratorRunner")
-public class ListenerClass extends io.fabric8.kubernetes.client.CustomResource<tech.stackable.listeners.v1alpha1.ListenerClassSpec, java.lang.Void> implements io.fabric8.kubernetes.api.model.Namespaced {
+public class ListenerClass extends io.fabric8.kubernetes.client.CustomResource<tech.stackable.listeners.v1alpha1.ListenerClassSpec, java.lang.Void> {
 }
 

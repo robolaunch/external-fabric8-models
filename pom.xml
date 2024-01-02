@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.roboscale.robot</groupId>
   <artifactId>external-fabric8-models</artifactId>
-  <version>0.1.0-alpha.3</version>
+  <version>0.1.0-alpha.4</version>
   <name>external-fabric8-models</name>
   <url>https://robolaunch.io</url>
   <properties>
