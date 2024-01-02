@@ -42,12 +42,6 @@
             </goals>
           </execution>
         </executions>
-        <configuration>
-          <source>src/main/java/io/roboscale/fleet/v1alpha1</source>
-          <source>src/main/java/io/roboscale/robot/v1alpha1</source>
-          <source>src/main/java/io/roboscale/robot/v1alpha1/workspacemanagerspec</source>
-          <source>src/main/java/io/roboscale/robot/v1alpha1/workspacemanagerspec/workspaces</source>
-        </configuration>
       </plugin>
     </plugins>
     <pluginManagement>
