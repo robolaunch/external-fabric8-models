@@ -42,6 +42,16 @@
             </goals>
           </execution>
         </executions>
+        <configuration>
+          <source>src/main/java/tech/stackable/kafka/v1alpha1</source>
+          <source>src/main/java/tech/stackable/listeners/v1alpha1</source>
+          <source>src/main/java/tech/stackable/nifi/v1alpha1</source>
+          <source>src/main/java/tech/stackable/opa/v1alpha1</source>
+          <source>src/main/java/tech/stackable/s3/v1alpha1</source>
+          <source>src/main/java/tech/stackable/secrets/v1alpha1</source>
+          <source>src/main/java/tech/stackable/superset/v1alpha1</source>
+          <source>src/main/java/tech/stackable/zookeeper/v1alpha1</source>
+        </configuration>
       </plugin>
     </plugins>
     <pluginManagement>
