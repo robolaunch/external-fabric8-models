@@ -7,18 +7,6 @@ on:
         default: "6.5.1"
         required: true
         description: 'Fabric8 version'
-      robotOperatorTag:
-        type: string
-        required: true
-        description: 'Robot Operator tag. (existing)'
-      fleetOperatorTag:
-        type: string
-        required: true
-        description: 'Fleet Operator tag. (existing)'
-      connectionHubOperatorTag:
-        type: string
-        required: true
-        description: 'Connection Hub Operator tag. (existing)'
       clientTag:
         type: string
         required: true
@@ -50,23 +38,7 @@ jobs:
     - name: Fetch CRDs
       run: |
         rm -rf src/
-        rm -rf crds/base/*.yaml
-        # connection-hub.roboscale.io
-        wget -P ./crds/base/ https://raw.githubusercontent.com/robolaunch/connection-hub-operator/${{ github.event.inputs.connectionHubOperatorTag }}/config/crd/bases/connection-hub.roboscale.io_connectionhubs.yaml
-        wget -P ./crds/base/ https://raw.githubusercontent.com/robolaunch/connection-hub-operator/${{ github.event.inputs.connectionHubOperatorTag }}/config/crd/bases/connection-hub.roboscale.io_cloudinstances.yaml
-        wget -P ./crds/base/ https://raw.githubusercontent.com/robolaunch/connection-hub-operator/${{ github.event.inputs.connectionHubOperatorTag }}/config/crd/bases/connection-hub.roboscale.io_physicalinstances.yaml
-        # fleet.roboscale.io
-        wget -P ./crds/base/ https://raw.githubusercontent.com/robolaunch/fleet-operator/${{ github.event.inputs.fleetOperatorTag }}/config/crd/bases/fleet.roboscale.io_fleets.yaml
-        # dev.roboscale.io
-        # wget -P ./crds/base/ https://raw.githubusercontent.com/robolaunch/devspace-operator/${{ github.event.inputs.devspaceOperatorTag }}/config/crd/bases/dev.roboscale.io_devspaces.yaml
-        # wget -P ./crds/base/ https://raw.githubusercontent.com/robolaunch/devspace-operator/${{ github.event.inputs.devspaceOperatorTag }}/config/crd/bases/dev.roboscale.io_workspacemanagers.yaml
-        # robot.roboscale.io
-        wget -P ./crds/base/ https://raw.githubusercontent.com/robolaunch/robot-operator/${{ github.event.inputs.robotOperatorTag }}/config/crd/bases/robot.roboscale.io_robots.yaml
-        wget -P ./crds/base/ https://raw.githubusercontent.com/robolaunch/robot-operator/${{ github.event.inputs.robotOperatorTag }}/config/crd/bases/robot.roboscale.io_workspacemanagers.yaml
-        wget -P ./crds/base/ https://raw.githubusercontent.com/robolaunch/robot-operator/${{ github.event.inputs.robotOperatorTag }}/config/crd/bases/robot.roboscale.io_buildmanagers.yaml
-        wget -P ./crds/base/ https://raw.githubusercontent.com/robolaunch/robot-operator/${{ github.event.inputs.robotOperatorTag }}/config/crd/bases/robot.roboscale.io_launchmanagers.yaml
-        wget -P ./crds/base/ https://raw.githubusercontent.com/robolaunch/robot-operator/${{ github.event.inputs.robotOperatorTag }}/config/crd/bases/robot.roboscale.io_metricsexporters.yaml
-    
+
     - name: Configure Code Generator
       run: |
         wget https://oss.sonatype.org/content/repositories/releases/io/fabric8/java-generator-cli/${{ github.event.inputs.fabric8Version }}/java-generator-cli-${{ github.event.inputs.fabric8Version }}.sh
@@ -74,21 +46,13 @@ jobs:
         chmod +x java-gen
         mv java-gen /usr/local/bin/
 
-    - name: Generate Models for Base CRDs
-      run: |
-        sudo /usr/local/bin/java-gen -s crds/base --target src/main/java
-
-    - name: Generate Models for Federated CRDs
-      run: |
-        sudo /usr/local/bin/java-gen -s crds/federated --target src/main/java
-
     - name: Generate Models for External CRDs
       run: |
         sudo /usr/local/bin/java-gen -s crds/external --target src/main/java
 
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:
-        commit_message: "build(ci): generate fabric8 models ${{ github.event.inputs.clientTag }} for robot.roboscale.io ${{ github.event.inputs.robotOperatorTag }}, fleet.roboscale.io ${{ github.event.inputs.fleetOperatorTag }} and connection-hub.roboscale.io ${{ github.event.inputs.connectionHubOperatorTag }}"
+        commit_message: "build(ci): generate fabric8 models for version ${{ github.event.inputs.clientTag }}"
         tagging_message: ${{ github.event.inputs.clientTag }}
     - uses: ncipollo/release-action@v1
       with:
@@ -97,12 +61,8 @@ jobs:
         name: ${{ github.event.inputs.clientTag }}
         prerelease: "${{ github.event.inputs.isPrerelease }}"
         body: |
-          This release (${{ github.event.inputs.clientTag }}) supports the operator versions below:
-          |                                 Components                                | Release Version |
-          |:-------------------------------------------------------------------------:|:---------------:|
-          | [robolaunch Robot Operator](https://github.com/robolaunch/robot-operator) |     ${{ github.event.inputs.robotOperatorTag }}     |
-          | [robolaunch Fleet Operator](https://github.com/robolaunch/fleet-operator) |     ${{ github.event.inputs.fleetOperatorTag }}      |
-          | [robolaunch Connection Hub Operator](https://github.com/robolaunch/connection-hub-operator) |     ${{ github.event.inputs.connectionHubOperatorTag }}      |
+          This release (${{ github.event.inputs.clientTag }}) supports [these CRDs](https://github.com/robolaunch/external-fabric8-models/tree/${{ github.event.inputs.clientTag }}/crds/external). 
+          
     - uses: actions/upload-artifact@v3
       with:
         name: generated-java-crd-model
