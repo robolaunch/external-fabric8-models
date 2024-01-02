@@ -2,9 +2,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.roboscale.robot</groupId>
-  <artifactId>robot-fabric8-client</artifactId>
-  <version>0.1.0-alpha.16</version>
-  <name>robot-fabric8-client</name>
+  <artifactId>external-fabric8-models</artifactId>
+  <version>0.1.0-alpha.1</version>
+  <name>external-fabric8-models</name>
   <url>https://robolaunch.io</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -99,7 +99,7 @@
     <repository>
       <id>github</id>
       <name>GitHub Packages</name>
-      <url>https://maven.pkg.github.com/robolaunch/robot-client-java-fabric8</url>
+      <url>https://maven.pkg.github.com/robolaunch/external-fabric8-models</url>
     </repository>
   </distributionManagement>
 </project>
